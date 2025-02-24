@@ -1,0 +1,34 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn.lock
+package-lock.json
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Binaries
+dist/
+build/
+
+# Database and cache files
+*.sqlite
+*.sqlite-journal
+dump.rdb
+
+# Temporary files
+tmp/
+temp/
+
+# VSCode and Editor settings
+.vscode/
+.idea/
+*.swp
+.DS_Store
