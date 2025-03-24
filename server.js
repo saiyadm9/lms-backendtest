@@ -17,7 +17,11 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors({ credentials: true, origin: process.env.FRONTEND_URL }));
+const corsOptions = {
+  origin: process.env.FRONTEND_URL, // Allow requests only from your frontend URL
+  credentials: true, // Allow credentials (cookies)
+};
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(express.json());
 
