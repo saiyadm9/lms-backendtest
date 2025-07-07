@@ -32,5 +32,6 @@ app.use("/api/admin", require("./routes/user"));
 app.use("/api/admin", require("./routes/course"));
 app.use("/api/message", require("./routes/contact"));
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
