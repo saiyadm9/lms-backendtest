@@ -3,16 +3,20 @@ const { isAdmin, protect } = require("../middleware/auth");
 const {
   addCourse,
   getCourses,
-  assignCoursesToUser,
-  getAllAssignedCourses,
+  updateUserCourses,
+  removeUserCourse,
+  removeUserCourseLink,
 } = require("../controllers/courseController");
 
 const router = express.Router();
 
-// router.post("/addcourse", protect, isAdmin, addCourse);
-// router.post("/buycourse", protect, addCourse);
+// Admin-only: Add a new course
+router.post("/addcourse", protect, isAdmin, addCourse);
+
+// Public: Get all courses
 router.get("/getcourses", getCourses);
-router.put("/users/:userId/courses", protect, isAdmin, assignCoursesToUser);
-router.get("/getassigned-courses", protect, isAdmin, getAllAssignedCourses);
+
+// Admin: Assign or update a student's course list (with links)
+router.put("/users/:userId", protect, isAdmin, updateUserCourses);
 
 module.exports = router;

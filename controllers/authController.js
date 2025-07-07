@@ -5,19 +5,32 @@ const bcrypt = require("bcryptjs");
 const registerUser = async (req, res) => {
   console.log(req.body);
 
-  const { name, email, password, role } = req.body;
-  const userExists = await User.findOne({ email });
+  const { name, email, phone, address, role } = req.body;
 
+  const userExists = await User.findOne({ email });
   if (userExists)
     return res.status(400).json({ message: "User already exists" });
 
-  const user = await User.create({ name, email, password, role });
+  const defaultPassword = "default123";
+
+  const userData = {
+    name,
+    email,
+    phone,
+    address,
+    password: defaultPassword,  // Assign default password
+    role: role || "student",
+  };
+
+  const user = await User.create(userData);
+
   if (user) {
-    res.status(201).json({ message: "Success" });
+    res.status(201).json({ message: "Success", user });
   } else {
-    res.status(400).json({ message: "Invalid uer data" });
+    res.status(400).json({ message: "Invalid user data" });
   }
 };
+
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   const lowerCaseEmail = email.toLowerCase();
