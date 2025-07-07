@@ -17,13 +17,14 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.set("trust proxy", 1);
 const corsOptions = {
   origin: process.env.FRONTEND_URL, // Allow requests only from your frontend URL
   credentials: true, // Allow credentials (cookies)
 };
 app.use(cors(corsOptions));
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
 app.use(express.json());
 
 app.use(cookieParser());

@@ -5,20 +5,18 @@ const bcrypt = require("bcryptjs");
 const registerUser = async (req, res) => {
   console.log(req.body);
 
-  const { name, email, phone, address, role } = req.body;
+  const { name, email, password, phone, address, role } = req.body;
 
   const userExists = await User.findOne({ email });
   if (userExists)
     return res.status(400).json({ message: "User already exists" });
-
-  const defaultPassword = "default123";
 
   const userData = {
     name,
     email,
     phone,
     address,
-    password: defaultPassword,  // Assign default password
+    password: password || "default123",  // Assign default password
     role: role || "student",
   };
 

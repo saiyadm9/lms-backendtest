@@ -73,49 +73,46 @@ const updateUserCourses = async (req, res) => {
   }
 };
 
-
-// Remove a Course from User
-const removeUserCourse = async (req, res) => {
-  const { userId, courseId } = req.params;
-
-  try {
-    await User.findByIdAndUpdate(userId, {
-      $pull: { courses: { courseId } },
-    });
-
-    res.status(200).json({ message: "Course removed from user" });
-  } catch (error) {
-    console.error("Remove course error:", error);
-    res.status(500).json({ error: error.message });
-  }
-};
-
-// Remove a Link from a Course in User
-const removeUserCourseLink = async (req, res) => {
-  const { userId, courseId, linkIndex } = req.params;
-
-  try {
-    const user = await User.findById(userId);
-    if (!user) return res.status(404).json({ error: "User not found" });
-
-    const course = user.courses.find(c => c.courseId.toString() === courseId);
-    if (!course) return res.status(404).json({ error: "Course not assigned to user" });
-
-    course.links.splice(linkIndex, 1); // remove the link
-    await user.save();
-
-    res.status(200).json({ message: "Link removed", updatedCourse: course });
-  } catch (error) {
-    console.error("Remove link error:", error);
-    res.status(500).json({ error: error.message });
-  }
-};
-
-
 module.exports = {
   addCourse,
   getCourses,
-  updateUserCourses,
-  removeUserCourse,
-  removeUserCourseLink,
+  updateUserCourses
 };
+
+
+// Remove a Course from User
+// const removeUserCourse = async (req, res) => {
+//   const { userId, courseId } = req.params;
+
+//   try {
+//     await User.findByIdAndUpdate(userId, {
+//       $pull: { courses: { courseId } },
+//     });
+
+//     res.status(200).json({ message: "Course removed from user" });
+//   } catch (error) {
+//     console.error("Remove course error:", error);
+//     res.status(500).json({ error: error.message });
+//   }
+// };
+
+// Remove a Link from a Course in User
+// const removeUserCourseLink = async (req, res) => {
+//   const { userId, courseId, linkIndex } = req.params;
+
+//   try {
+//     const user = await User.findById(userId);
+//     if (!user) return res.status(404).json({ error: "User not found" });
+
+//     const course = user.courses.find(c => c.courseId.toString() === courseId);
+//     if (!course) return res.status(404).json({ error: "Course not assigned to user" });
+
+//     course.links.splice(linkIndex, 1); // remove the link
+//     await user.save();
+
+//     res.status(200).json({ message: "Link removed", updatedCourse: course });
+//   } catch (error) {
+//     console.error("Remove link error:", error);
+//     res.status(500).json({ error: error.message });
+//   }
+// };
