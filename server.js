@@ -17,6 +17,7 @@ dotenv.config();
 connectDB();
 
 const app = express();
+app.set("trust proxy", 1);
 const corsOptions = {
   origin: process.env.FRONTEND_URL, // Allow requests only from your frontend URL
   credentials: true, // Allow credentials (cookies)
