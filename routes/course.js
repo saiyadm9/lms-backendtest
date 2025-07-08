@@ -8,8 +8,8 @@ const {
 
 const router = express.Router();
 
-router.post("/addcourse", protect, isAdmin, addCourse);
+router.post("/addcourse", addCourse);
 router.get("/getcourses", getCourses);
-router.put("/users/:userId", protect, isAdmin, updateUserCourses);
+router.put("/users/:userId", updateUserCourses);
 
 module.exports = router;

@@ -4,6 +4,6 @@ const { protect, isAdmin } = require("../middleware/auth");
 
 const router = express.Router();
 
-router.get("/users", protect, isAdmin, getUsers);
+router.get("/users", getUsers);
 
 module.exports = router;
